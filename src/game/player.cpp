@@ -71,14 +71,27 @@ void Sid::Player::move()
     _eye.setPosition(_body.getPosition() + offset);
 }
 
+void Sid::Player::draw()
+{
+    _window.draw(_body);
+    _window.draw(_eye);
+}
+
+void Sid::Player::process()
+{
+    if (_status.laser) {
+        _eye.setFillColor(cfg.laser.color);
+        _status.laser = false;
+    }
+    else {
+        _eye.setFillColor(cfg.player.eye.color);
+    }
+    move();
+    draw();
+}
+
 auto Sid::Player::position() const
     -> const sf::Vector2f&
 {
     return _body.getPosition();
-}
-
-void Sid::Player::draw() const
-{
-    _window.draw(_body);
-    _window.draw(_eye);
 }

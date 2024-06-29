@@ -16,10 +16,13 @@ namespace Sid {
         Player(Player&&) noexcept = delete;
         Player& operator=(Player&&) noexcept = delete;
 
+        void laser() { _status.laser = true; }
+
         bool valid(sf::Keyboard::Key key);
         void move();
+        void draw();
+        void process();
         auto position() const -> const sf::Vector2f&;
-        void draw() const;
 
     private:
         sf::RenderWindow& _window;
@@ -27,6 +30,7 @@ namespace Sid {
         sf::CircleShape _eye;
         struct {
             bool forward = true;
+            bool laser = false;
         } _status;
     };
 

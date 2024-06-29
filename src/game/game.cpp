@@ -8,15 +8,23 @@
 
 Sid::Game::Game()
     : _window {cfg.window.mode, cfg.window.title, cfg.window.style},
-      _player {_window}
+      _player {_window},
+      _laser {_window, _player}
 {
     _window.setFramerateLimit(cfg.window.limit);
+}
+
+void Sid::Game::process()
+{
+    _window.clear(cfg.window.color);
+    _laser.process();
+    _player.process();
+    _window.display();
 }
 
 void Sid::Game::start()
 {
     while (_window.isOpen()) {
-        float time = _status.time.getElapsedTime().asSeconds();
         for (sf::Event event {}; _window.pollEvent(event);) {
             switch (event.type) {
             case sf::Event::Closed:
@@ -26,14 +34,12 @@ void Sid::Game::start()
                 break;
             }
         }
-        if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
             _status.time.restart();
         }
+        process();
 
-        _window.clear(cfg.window.color);
-        _player.move();
-        _player.draw();
-        _window.display();
+        float time = _status.time.getElapsedTime().asSeconds();
         std::cout << time << '\n';
     }
 }

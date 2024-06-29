@@ -34,7 +34,7 @@ namespace Sid {
 
         struct {
             sf::Color color {sf::Color::Red};
-        } line;
+        } laser;
 
         struct {
             sf::Color color {sf::Color::Yellow};

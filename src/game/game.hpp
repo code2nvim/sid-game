@@ -1,10 +1,10 @@
 #ifndef SID_GAME_HPP
 #define SID_GAME_HPP
 
+#include "laser.hpp"
 #include "player.hpp"
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
-#include <SFML/System/Clock.hpp>
 #include <SFML/Window.hpp>
 
 namespace Sid {
@@ -18,11 +18,13 @@ namespace Sid {
         Game(Game&&) noexcept = delete;
         Game& operator=(Game&&) noexcept = delete;
 
+        void process();
         void start();
 
     private:
         sf::RenderWindow _window;
         Player _player;
+        Laser _laser;
         struct {
             sf::Clock time;
         } _status;
