@@ -73,12 +73,6 @@ void Sid::Player::move()
 
 void Sid::Player::draw()
 {
-    _window.draw(_body);
-    _window.draw(_eye);
-}
-
-void Sid::Player::process()
-{
     if (_status.laser) {
         _eye.setFillColor(cfg.laser.color);
         _status.laser = false;
@@ -86,6 +80,12 @@ void Sid::Player::process()
     else {
         _eye.setFillColor(cfg.player.eye.color);
     }
+    _window.draw(_body);
+    _window.draw(_eye);
+}
+
+void Sid::Player::process()
+{
     move();
     draw();
 }

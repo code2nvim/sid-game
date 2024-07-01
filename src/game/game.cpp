@@ -4,12 +4,12 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
-#include <iostream>
 
 Sid::Game::Game()
     : _window {cfg.window.mode, cfg.window.title, cfg.window.style},
       _player {_window},
-      _laser {_window, _player}
+      _laser {_window, _player},
+      _hostile {_window, _player}
 {
     _window.setFramerateLimit(cfg.window.limit);
 }
@@ -17,6 +17,7 @@ Sid::Game::Game()
 void Sid::Game::process()
 {
     _window.clear(cfg.window.color);
+    _hostile.process();
     _laser.process();
     _player.process();
     _window.display();
@@ -38,8 +39,5 @@ void Sid::Game::start()
             _status.time.restart();
         }
         process();
-
-        float time = _status.time.getElapsedTime().asSeconds();
-        std::cout << time << '\n';
     }
 }

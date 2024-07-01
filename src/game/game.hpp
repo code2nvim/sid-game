@@ -1,6 +1,7 @@
 #ifndef SID_GAME_HPP
 #define SID_GAME_HPP
 
+#include "hostile.hpp"
 #include "laser.hpp"
 #include "player.hpp"
 #include <SFML/Graphics.hpp>
@@ -25,6 +26,7 @@ namespace Sid {
         sf::RenderWindow _window;
         Player _player;
         Laser _laser;
+        Hostile _hostile;
         struct {
             sf::Clock time;
         } _status;
